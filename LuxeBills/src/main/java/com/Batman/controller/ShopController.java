@@ -146,7 +146,10 @@ public class ShopController {
 
 	@PostMapping("/closebill")
 	public String closeBill(@ModelAttribute("bill") Bill bill, Map<String, Object> model, @SessionAttribute User user) {
-
+                
+		if(bill.getFood()==null) {
+			return "redirect:./history";
+		}
 		Bill saveBill = service.saveBill(bill);
 		Collection<FoodBO> foods = saveBill.getFood().values();
 		Double cost = 0.0;
